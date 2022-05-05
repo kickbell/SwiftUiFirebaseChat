@@ -112,7 +112,7 @@ struct LoginView: View {
     private func handleAction() {
         if isLoginMode {
             loginUser()
-            print("기존 자격 증명으로 Firebase에 로그인해야 합니다.")
+            print("기존 자격증명으로 Firebase에 로그인해야 합니다.")
         } else {
             createNewAccount()
             print("firebase auth 내부에 새 계정을 등록하고 어떻게 든 저장소에 이미지를 저장하십시오.")
