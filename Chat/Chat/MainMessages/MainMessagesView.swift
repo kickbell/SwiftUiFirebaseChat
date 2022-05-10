@@ -14,8 +14,20 @@ class MainMessagesViewModel: ObservableObject {
     }
     
     private func fetchCurrentUser() {
+        guard let uid = FirebaseManager.shard.auth.currentUser?.uid else { return }
         
+        FirebaseManager.shard.firestore.collection("users")
+            .document(uid).getDocument { snapshot, error in
+                if let error = error {
+                    print("Failed to fetch current user:", error)
+                    return
+                }
+                
+                guard let data = snapshot?.data() else { return }
+                print(data)
+            }
     }
+    
 }
 
 struct MainMessagesView: View {
