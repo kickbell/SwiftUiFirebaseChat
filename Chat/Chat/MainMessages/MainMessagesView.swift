@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+class MainMessagesViewModel: ObservableObject {
+    
+    init() {
+        fetchCurrentUser()
+    }
+    
+    private func fetchCurrentUser() {
+        
+    }
+}
+
 struct MainMessagesView: View {
     
     @State var shouldShowLogOutOptions = false
