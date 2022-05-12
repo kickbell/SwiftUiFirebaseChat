@@ -9,22 +9,32 @@ import SwiftUI
 
 class MainMessagesViewModel: ObservableObject {
     
+    @Published var errorMessage = ""
+    
     init() {
         fetchCurrentUser()
     }
     
     private func fetchCurrentUser() {
-        guard let uid = FirebaseManager.shard.auth.currentUser?.uid else { return }
+        guard let uid = FirebaseManager.shard.auth.currentUser?.uid else {
+            self.errorMessage = "Could to find firebase uid"
+            return
+        }
         
         FirebaseManager.shard.firestore.collection("users")
             .document(uid).getDocument { snapshot, error in
                 if let error = error {
+                    self.errorMessage = "Failed to fetch current user: \(error)"
                     print("Failed to fetch current user:", error)
                     return
                 }
                 
-                guard let data = snapshot?.data() else { return }
-                print(data)
+                guard let data = snapshot?.data() else {
+                    self.errorMessage = "No data found"
+                    return
+                }
+//                print(data)
+                self.errorMessage = "Data: \(data.description)"
             }
     }
     
@@ -33,6 +43,8 @@ class MainMessagesViewModel: ObservableObject {
 struct MainMessagesView: View {
     
     @State var shouldShowLogOutOptions = false
+    
+    @ObservedObject private var vm = MainMessagesViewModel()
     
     private var customNavBar: some View {
         HStack(spacing: 16) {
@@ -126,7 +138,9 @@ struct MainMessagesView: View {
     
     var body: some View {
         NavigationView {
+            
             VStack {
+                Text("CURRENT USER ID : \(vm.errorMessage)")
                 customNavBar
                 messageView
             }
