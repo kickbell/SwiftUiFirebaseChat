@@ -46,6 +46,12 @@ class MainMessagesViewModel: ObservableObject {
                 }
             }
     }
+    
+    @Published var isUserCurrentlyLoggedOut = false
+    
+    func handleSignOut() {
+        isUserCurrentlyLoggedOut.toggle()
+    }
 }
 
 struct MainMessagesView: View {
@@ -59,7 +65,7 @@ struct MainMessagesView: View {
             WebImage(url: URL(string: vm.chatUser?.profileImageUrl ?? ""))
                 .resizable()
                 .placeholder(Image(systemName: "person.fill"))
-                .scaledToFit()
+                .scaledToFill()
                 .frame(width: 50, height: 50)
                 .clipped()
                 .cornerRadius(50)
@@ -94,11 +100,14 @@ struct MainMessagesView: View {
                   message: Text("What do you want to do?"),
                   buttons: [
                     .destructive(Text("Sign Out"), action: {
-                        print("handle sing out")
+                        vm.handleSignOut()
                     }),
                     .cancel()
                   ]
             )
+        }
+        .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut, onDismiss: nil) {
+            LoginView()
         }
     }
     
