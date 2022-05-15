@@ -9,13 +9,6 @@ import SwiftUI
 import FirebaseFirestoreSwift
 import SDWebImageSwiftUI
 
-
-struct ChatUser: Codable {
-    let uid: String
-    let email: String
-    let profileImageUrl: String
-}
-
 class MainMessagesViewModel: ObservableObject {
     
     @Published var errorMessage = ""
@@ -26,10 +19,15 @@ class MainMessagesViewModel: ObservableObject {
     }
     
     init() {
+
+        DispatchQueue.main.async {
+            self.isUserCurrentlyLoggedOut = FirebaseManager.shard.auth.currentUser?.uid == nil
+        }
+        
         fetchCurrentUser()
     }
     
-    private func fetchCurrentUser() {
+    func fetchCurrentUser() {
         guard let uid = FirebaseManager.shard.auth.currentUser?.uid else {
             self.errorMessage = "Could to find firebase uid"
             return
@@ -51,6 +49,7 @@ class MainMessagesViewModel: ObservableObject {
     
     func handleSignOut() {
         isUserCurrentlyLoggedOut.toggle()
+        try? FirebaseManager.shard.auth.signOut()
     }
 }
 
@@ -107,7 +106,10 @@ struct MainMessagesView: View {
             )
         }
         .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut, onDismiss: nil) {
-            LoginView()
+            LoginView(didCompleteLoginProcess: {
+                self.vm.isUserCurrentlyLoggedOut = false
+                self.vm.fetchCurrentUser()
+            })
         }
     }
     
@@ -164,9 +166,6 @@ struct MainMessagesView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if let email = vm.chatUser?.email.components(separatedBy: "@").first ?? "" {
-                    Text("USER : \(email.uppercased())")
-                }
                 customNavBar
                 messageView
             }

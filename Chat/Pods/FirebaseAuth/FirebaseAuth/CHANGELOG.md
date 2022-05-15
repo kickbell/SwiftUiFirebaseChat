@@ -1,3 +1,10 @@
+# v9.0.0
+- [fixed] **Breaking change:** Fixed an ObjC-to-Swift API conversion error where `getStoredUser(forAccessGroup:)` returned a non-optional type. This change is breaking for Swift users only (#8599).
+- [fixed] Fixed an iOS 15 keychain access issue related to prewarming. (#8695)
+
+# v8.14.0
+- [added] Started to collect the Firebase user agent for Firebase Auth. (#9066)
+
 # v8.12.0
 - [added] Added documentation note and error logging to `getStoredUser(forAccessGroup:)` regarding tvOS keychain sharing issues. (#8878)
 - [fixed] Partial fix for expired ID token issue. (#6521)
