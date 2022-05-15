@@ -59,10 +59,13 @@ struct MainMessagesView: View {
             WebImage(url: URL(string: vm.chatUser?.profileImageUrl ?? ""))
                 .resizable()
                 .placeholder(Image(systemName: "person.fill"))
-                .scaledToFill()
+                .scaledToFit()
                 .frame(width: 50, height: 50)
                 .clipped()
                 .cornerRadius(50)
+                .overlay(RoundedRectangle(cornerRadius: 44)
+                            .stroke(Color(.label), lineWidth: 1)
+                )
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(vm.userName)
