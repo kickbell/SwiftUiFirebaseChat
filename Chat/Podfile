@@ -9,5 +9,6 @@ target 'Chat' do
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
   pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
   
 end

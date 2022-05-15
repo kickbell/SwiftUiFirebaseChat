@@ -6,14 +6,19 @@
 //
 
 import SwiftUI
+import FirebaseFirestoreSwift
 
-struct ChatUser {
-  let uid, email, profileImageUrl: String
+
+struct ChatUser: Codable {
+    let uid: String
+    let email: String
+    let profileImageUrl: String
 }
 
 class MainMessagesViewModel: ObservableObject {
     
     @Published var errorMessage = ""
+    @Published var chatUser: ChatUser?
     
     init() {
         fetchCurrentUser()
@@ -26,19 +31,14 @@ class MainMessagesViewModel: ObservableObject {
         }
         
         FirebaseManager.shard.firestore.collection("users")
-            .document(uid).getDocument { snapshot, error in
-                if let error = error {
-                    self.errorMessage = "Failed to fetch current user: \(error)"
-                    print("Failed to fetch current user:", error)
-                    return
+            .document(uid).getDocument(as: ChatUser.self) { result in
+                switch result {
+                case let .success(chatuser):
+                    self.chatUser = chatuser
+                    print(chatuser, "cchhuser...")
+                case let .failure(error) :
+                    self.errorMessage = error.localizedDescription
                 }
-                
-                guard let data = snapshot?.data() else {
-                    self.errorMessage = "No data found"
-                    return
-                }
-//                print(data)
-                self.errorMessage = "Data: \(data.description)"
             }
     }
     
@@ -79,13 +79,13 @@ struct MainMessagesView: View {
         .padding()
         .actionSheet(isPresented: $shouldShowLogOutOptions) {
             .init(title: Text("Settings"),
-                        message: Text("What do you want to do?"),
-                        buttons: [
-                            .destructive(Text("Sign Out"), action: {
-                                print("handle sing out")
-                            }),
-                            .cancel()
-                        ]
+                  message: Text("What do you want to do?"),
+                  buttons: [
+                    .destructive(Text("Sign Out"), action: {
+                        print("handle sing out")
+                    }),
+                    .cancel()
+                  ]
             )
         }
     }
@@ -99,7 +99,7 @@ struct MainMessagesView: View {
                             .font(.system(size: 32))
                             .padding(8)
                             .overlay(RoundedRectangle(cornerRadius: 44)
-                                    .stroke(Color(.label), lineWidth: 1)
+                                        .stroke(Color(.label), lineWidth: 1)
                             )
                         
                         VStack(alignment: .leading) {
@@ -143,7 +143,9 @@ struct MainMessagesView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("CURRENT USER ID : \(vm.errorMessage)")
+                if let email = vm.chatUser?.email.components(separatedBy: "@").first ?? "" {
+                    Text("USER : \(email.uppercased())")
+                }
                 customNavBar
                 messageView
             }
