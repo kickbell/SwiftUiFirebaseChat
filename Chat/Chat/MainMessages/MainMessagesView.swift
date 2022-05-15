@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseFirestoreSwift
+import SDWebImageSwiftUI
 
 
 struct ChatUser: Codable {
@@ -19,6 +20,10 @@ class MainMessagesViewModel: ObservableObject {
     
     @Published var errorMessage = ""
     @Published var chatUser: ChatUser?
+    
+    var userName: String {
+        return self.chatUser?.email.components(separatedBy: "@").first ?? ""
+    }
     
     init() {
         fetchCurrentUser()
@@ -41,7 +46,6 @@ class MainMessagesViewModel: ObservableObject {
                 }
             }
     }
-    
 }
 
 struct MainMessagesView: View {
@@ -52,11 +56,16 @@ struct MainMessagesView: View {
     
     private var customNavBar: some View {
         HStack(spacing: 16) {
-            Image(systemName: "person.fill")
-                .font(.system(size: 34, weight: .heavy))
+            WebImage(url: URL(string: vm.chatUser?.profileImageUrl ?? ""))
+                .resizable()
+                .placeholder(Image(systemName: "person.fill"))
+                .scaledToFill()
+                .frame(width: 50, height: 50)
+                .clipped()
+                .cornerRadius(50)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text("USER NAME")
+                Text(vm.userName)
                     .font(.system(size: 24, weight: .bold))
                 
                 HStack {
