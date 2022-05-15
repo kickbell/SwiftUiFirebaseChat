@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+struct ChatUser {
+  let uid, email, profileImageUrl: String
+}
+
 class MainMessagesViewModel: ObservableObject {
     
     @Published var errorMessage = ""
@@ -138,9 +142,8 @@ struct MainMessagesView: View {
     
     var body: some View {
         NavigationView {
-            
             VStack {
-                Text("CURRENT USER ID :\(vm.errorMessage)")
+                Text("CURRENT USER ID : \(vm.errorMessage)")
                 customNavBar
                 messageView
             }
