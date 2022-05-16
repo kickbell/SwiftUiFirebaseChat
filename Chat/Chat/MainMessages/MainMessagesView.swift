@@ -38,7 +38,6 @@ class MainMessagesViewModel: ObservableObject {
                 switch result {
                 case let .success(chatuser):
                     self.chatUser = chatuser
-                    print(chatuser, "cchhuser...")
                 case let .failure(error) :
                     self.errorMessage = error.localizedDescription
                 }
