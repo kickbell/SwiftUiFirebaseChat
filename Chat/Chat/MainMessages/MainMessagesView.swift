@@ -133,7 +133,7 @@ struct MainMessagesView: View {
                             
                         }
                         Spacer()
-                        Text("22d")
+                        Text("24d")
                             .font(.system(size: 14, weight: .semibold))
                     }
                     Divider()
@@ -149,7 +149,7 @@ struct MainMessagesView: View {
         } label: {
             HStack {
                 Spacer()
-                Text(" + New Message ")
+                Text("  + New Message  ")
                     .font(.system(size: 16, weight: .bold))
                 Spacer()
             }
