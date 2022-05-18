@@ -104,12 +104,12 @@ struct MainMessagesView: View {
                   ]
             )
         }
-        .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut, onDismiss: nil) {
-            LoginView(didCompleteLoginProcess: {
-                self.vm.isUserCurrentlyLoggedOut = false
-                self.vm.fetchCurrentUser()
-            })
-        }
+//        .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut, onDismiss: nil) {
+//            LoginView(didCompleteLoginProcess: {
+//                self.vm.isUserCurrentlyLoggedOut = false
+//                self.vm.fetchCurrentUser()
+//            })
+//        }
     }
     
     private var messageView: some View {
@@ -163,7 +163,7 @@ struct MainMessagesView: View {
             .shadow(radius: 15)
         }
         .fullScreenCover(isPresented: $shouldShowNewMessageScreen) {
-            Text("asdf")
+            CreateNewMessageView()
         }
     }
     
