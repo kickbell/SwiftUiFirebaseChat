@@ -149,7 +149,7 @@ struct MainMessagesView: View {
         } label: {
             HStack {
                 Spacer()
-                Text("  + New Message  ")
+                Text(" + New Message ")
                     .font(.system(size: 16, weight: .bold))
                 Spacer()
             }
