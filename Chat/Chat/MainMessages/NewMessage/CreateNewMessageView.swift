@@ -16,6 +16,10 @@ class CreatNewMessageViewModel: ObservableObject {
     let userName: (String) -> String = {
         $0.components(separatedBy: "@").first ?? ""
     }
+    
+    var currentUid: String {
+        FirebaseManager.shard.auth.currentUser?.uid ?? ""
+    }
 
     init() {
         fetchAllUsers()
@@ -23,6 +27,7 @@ class CreatNewMessageViewModel: ObservableObject {
     
     private func fetchAllUsers() {
         FirebaseManager.shard.firestore.collection("users")
+            .whereField("email", isNotEqualTo: "devjck@cashwalk.io")
             .getDocuments { snapshots, error in
                 if let error = error {
                     self.errorMessage = "Failed to fetch users:\(error)"
@@ -52,25 +57,30 @@ struct CreateNewMessageView: View {
         NavigationView {
             ScrollView {
                 ForEach(vm.users) { user in
-                    HStack(spacing: 15) {
-                        WebImage(url: URL(string: user.profileImageUrl))
-                            .resizable()
-                            .placeholder { Rectangle().foregroundColor(.gray) }
-                            .indicator(.activity)
-                            .transition(.fade(duration: 0.5))
-                            .scaledToFill()
-                            .frame(width: 50, height: 50)
-                            .clipped()
-                            .cornerRadius(50)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 50)
-                                        .stroke(.black, lineWidth: 2)
-                            )
-                        Text(vm.userName(user.email))
-                        Spacer()
-                    }.padding(.horizontal)
-                    Divider()
-                        .padding(.vertical, 8)
+                    Button {
+                        
+                    } label: {
+                        HStack(spacing: 15) {
+                            WebImage(url: URL(string: user.profileImageUrl))
+                                .resizable()
+                                .placeholder { Rectangle().foregroundColor(.gray) }
+                                .indicator(.activity)
+                                .transition(.fade(duration: 0.5))
+                                .scaledToFill()
+                                .frame(width: 50, height: 50)
+                                .clipped()
+                                .cornerRadius(50)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 50)
+                                            .stroke(.black, lineWidth: 2)
+                                )
+                            Text(vm.userName(user.email))
+                                .foregroundColor(.black)
+                            Spacer()
+                        }.padding(.horizontal)
+                        Divider()
+                            .padding(.vertical, 8)
+                    }
                 }
             }
             .navigationTitle("New Message")
