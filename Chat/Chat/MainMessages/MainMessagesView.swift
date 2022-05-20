@@ -56,6 +56,8 @@ struct MainMessagesView: View {
     
     @State var shouldShowLogOutOptions = false
     
+    @State var shouldNavigateToChatLogView = false
+    
     @ObservedObject private var vm = MainMessagesViewModel()
     
     private var customNavBar: some View {
@@ -115,30 +117,34 @@ struct MainMessagesView: View {
     private var messageView: some View {
         ScrollView {
             ForEach(0..<10, id: \.self) { num in
-                VStack {
-                    HStack(spacing: 16) {
-                        Image(systemName: "person.fill")
-                            .font(.system(size: 32))
-                            .padding(8)
-                            .overlay(RoundedRectangle(cornerRadius: 44)
-                                        .stroke(Color(.label), lineWidth: 1)
-                            )
-                        
-                        VStack(alignment: .leading) {
-                            Text("Username")
-                                .font(.system(size: 16, weight: .bold))
-                            Text("Message sent to user")
-                                .font(.system(size: 14))
-                                .foregroundColor(.gray)
+                NavigationLink {
+                    Text("기존 유저를 선택했을 때의 링크")
+                } label: {
+                    VStack {
+                        HStack(spacing: 16) {
+                            Image(systemName: "person.fill")
+                                .font(.system(size: 32))
+                                .padding(8)
+                                .overlay(RoundedRectangle(cornerRadius: 44)
+                                            .stroke(Color(.label), lineWidth: 1)
+                                )
                             
+                            VStack(alignment: .leading) {
+                                Text("Username")
+                                    .font(.system(size: 16, weight: .bold))
+                                Text("Message sent to user")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.gray)
+                                
+                            }
+                            Spacer()
+                            Text("24d")
+                                .font(.system(size: 14, weight: .semibold))
                         }
-                        Spacer()
-                        Text("24d")
-                            .font(.system(size: 14, weight: .semibold))
-                    }
-                    Divider()
-                        .padding(.vertical, 8)
-                }.padding(.horizontal)
+                        Divider()
+                            .padding(.vertical, 8)
+                    }.padding(.horizontal)
+                }
             }.padding(.bottom, 50)
         }
     }
@@ -165,15 +171,23 @@ struct MainMessagesView: View {
         .fullScreenCover(isPresented: $shouldShowNewMessageScreen) {
             CreateNewMessageView(didSelectedUser: { user in
                 print(user)
+                self.shouldNavigateToChatLogView.toggle()
+                self.chatUser = user
             })
         }
     }
+    
+    @State var chatUser: ChatUser?
     
     var body: some View {
         NavigationView {
             VStack {
                 customNavBar
                 messageView
+                
+                NavigationLink("", isActive: $shouldNavigateToChatLogView) {
+                    Text("New Message에서 유저를 선택했을 때의 링크")
+                }
             }
             .overlay(
                 newMessageButton, alignment: .bottom)
