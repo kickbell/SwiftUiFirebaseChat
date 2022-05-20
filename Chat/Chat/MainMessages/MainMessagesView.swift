@@ -163,7 +163,9 @@ struct MainMessagesView: View {
             .shadow(radius: 15)
         }
         .fullScreenCover(isPresented: $shouldShowNewMessageScreen) {
-            CreateNewMessageView()
+            CreateNewMessageView(didSelectedUser: { user in
+                print(user)
+            })
         }
     }
     

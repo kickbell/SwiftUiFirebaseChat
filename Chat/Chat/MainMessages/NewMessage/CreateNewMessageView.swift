@@ -44,6 +44,8 @@ class CreatNewMessageViewModel: ObservableObject {
 }
 
 struct CreateNewMessageView: View {
+    
+    let didSelectedUser: (ChatUser) -> ()
 
     @Environment(\.presentationMode) var presentationMode
     
@@ -54,6 +56,7 @@ struct CreateNewMessageView: View {
             ScrollView {
                 ForEach(vm.users) { user in
                     Button {
+                        didSelectedUser(user)
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         HStack(spacing: 15) {
