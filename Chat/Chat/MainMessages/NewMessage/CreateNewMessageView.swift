@@ -7,10 +7,15 @@
 
 import SwiftUI
 import FirebaseFirestoreSwift
+import SDWebImageSwiftUI
 
 class CreatNewMessageViewModel: ObservableObject {
     @Published var users: [ChatUser] = []
     @Published var errorMessage = ""
+    
+    let userName: (String) -> String = {
+        $0.components(separatedBy: "@").first ?? ""
+    }
 
     init() {
         fetchAllUsers()
@@ -47,7 +52,25 @@ struct CreateNewMessageView: View {
         NavigationView {
             ScrollView {
                 ForEach(vm.users) { user in
-                    Text(user.email)
+                    HStack(spacing: 15) {
+                        WebImage(url: URL(string: user.profileImageUrl))
+                            .resizable()
+                            .placeholder { Rectangle().foregroundColor(.gray) }
+                            .indicator(.activity)
+                            .transition(.fade(duration: 0.5))
+                            .scaledToFill()
+                            .frame(width: 50, height: 50)
+                            .clipped()
+                            .cornerRadius(50)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 50)
+                                        .stroke(.black, lineWidth: 2)
+                            )
+                        Text(vm.userName(user.email))
+                        Spacer()
+                    }.padding(.horizontal)
+                    Divider()
+                        .padding(.vertical, 8)
                 }
             }
             .navigationTitle("New Message")
