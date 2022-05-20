@@ -16,10 +16,6 @@ class CreatNewMessageViewModel: ObservableObject {
     let userName: (String) -> String = {
         $0.components(separatedBy: "@").first ?? ""
     }
-    
-    var currentUid: String {
-        FirebaseManager.shard.auth.currentUser?.uid ?? ""
-    }
 
     init() {
         fetchAllUsers()
