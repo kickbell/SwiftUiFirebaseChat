@@ -118,7 +118,7 @@ struct MainMessagesView: View {
         ScrollView {
             ForEach(0..<10, id: \.self) { num in
                 NavigationLink {
-                    Text("기존 유저를 선택했을 때의 링크")
+                    ChatLogView()
                 } label: {
                     VStack {
                         HStack(spacing: 16) {
@@ -186,7 +186,7 @@ struct MainMessagesView: View {
                 messageView
                 
                 NavigationLink("", isActive: $shouldNavigateToChatLogView) {
-                    Text("New Message에서 유저를 선택했을 때의 링크")
+                    ChatLogView()
                 }
             }
             .overlay(
@@ -195,6 +195,16 @@ struct MainMessagesView: View {
         }
     }
     
+}
+
+struct ChatLogView: View {
+    var body: some View {
+        ScrollView {
+            ForEach(0..<10) { num in
+                Text("hello world")
+            }
+        }.navigationTitle("Chat Log View")
+    }
 }
 
 struct MainMessagesView_Previews1: PreviewProvider {
