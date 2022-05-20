@@ -20,8 +20,8 @@ class CreatNewMessageViewModel: ObservableObject {
         FirebaseManager.shard.firestore.collection("users")
             .getDocuments { snapshots, error in
                 if let error = error {
-                    self.errorMessage = "Failed to fetch users: \(error)"
-                    print("Failed to fetch users: \(error)")
+                    self.errorMessage = "Failed to fetch users:\(error)"
+                    print("Failed to fetch users:\(error)")
                     return
                 }
                 snapshots?.documents.forEach { snapshot in
