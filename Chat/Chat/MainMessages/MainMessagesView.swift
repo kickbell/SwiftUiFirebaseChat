@@ -92,6 +92,7 @@ struct MainMessagesView: View {
             } label: {
                 Image(systemName: "gear")
                     .font(.system(size: 24, weight: .bold))
+                    .foregroundColor(.black)
             }
         }
         .padding()
@@ -118,7 +119,7 @@ struct MainMessagesView: View {
         ScrollView {
             ForEach(0..<10, id: \.self) { num in
                 NavigationLink {
-                    ChatLogView()
+                    ChatLogView(chatUser: self.chatUser)
                 } label: {
                     VStack {
                         HStack(spacing: 16) {
@@ -143,7 +144,9 @@ struct MainMessagesView: View {
                         }
                         Divider()
                             .padding(.vertical, 8)
-                    }.padding(.horizontal)
+                    }
+                    .padding(.horizontal)
+                    .foregroundColor(.black)
                 }
             }.padding(.bottom, 50)
         }
@@ -186,7 +189,7 @@ struct MainMessagesView: View {
                 messageView
                 
                 NavigationLink("", isActive: $shouldNavigateToChatLogView) {
-                    ChatLogView()
+                    ChatLogView(chatUser: self.chatUser)
                 }
             }
             .overlay(
@@ -198,12 +201,17 @@ struct MainMessagesView: View {
 }
 
 struct ChatLogView: View {
+    
+    let chatUser: ChatUser?
+    
     var body: some View {
         ScrollView {
             ForEach(0..<10) { num in
                 Text("hello world")
             }
-        }.navigationTitle("Chat Log View")
+        }
+        .navigationTitle(chatUser?.email ?? "")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
