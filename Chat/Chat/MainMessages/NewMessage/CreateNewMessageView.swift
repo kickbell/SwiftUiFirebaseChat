@@ -54,7 +54,7 @@ struct CreateNewMessageView: View {
             ScrollView {
                 ForEach(vm.users) { user in
                     Button {
-                        
+                        presentationMode.wrappedValue.dismiss()
                     } label: {
                         HStack(spacing: 15) {
                             WebImage(url: URL(string: user.profileImageUrl))
@@ -96,7 +96,7 @@ struct CreateNewMessageView: View {
 
 struct CreateNewMessageView_Previews: PreviewProvider {
     static var previews: some View {
-//        MainMessagesView()
-        CreateNewMessageView()
+        MainMessagesView()
+//        CreateNewMessageView()
     }
 }
