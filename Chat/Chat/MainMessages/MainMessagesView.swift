@@ -139,7 +139,7 @@ struct MainMessagesView: View {
                                 
                             }
                             Spacer()
-                            Text("24d")
+                            Text("22d")
                                 .font(.system(size: 14, weight: .semibold))
                         }
                         Divider()
