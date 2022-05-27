@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 
 class CreatNewMessageViewModel: ObservableObject {
     @Published var users: [ChatUser] = []
-    @Published var errorMessage = " "
+    @Published var errorMessage = ""
     
     let userName: (String) -> String = {
         $0.components(separatedBy: "@").first ?? ""
