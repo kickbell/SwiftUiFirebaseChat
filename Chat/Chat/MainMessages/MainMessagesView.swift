@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 
 class MainMessagesViewModel: ObservableObject {
     
-    @Published var errorMessage = ""
+    @Published var errorMessage = " "
     @Published var chatUser: ChatUser?
     
     var userName: String {
