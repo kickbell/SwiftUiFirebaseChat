@@ -11,6 +11,7 @@
 		A829255A2831372D00F8715D /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82925592831372D00F8715D /* FirebaseManager.swift */; };
 		A8A459F22835444E00E0CBA2 /* CreateNewMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A459F12835444E00E0CBA2 /* CreateNewMessageView.swift */; };
 		A8A693292846637200D1A20A /* ChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A693282846637200D1A20A /* ChatLogView.swift */; };
+		A8A6932B284A437E00D1A20A /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A6932A284A437C00D1A20A /* ChatMessage.swift */; };
 		A8ECAD662821D47A00D8D355 /* ChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ECAD652821D47A00D8D355 /* ChatApp.swift */; };
 		A8ECAD6A2821D47B00D8D355 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8ECAD692821D47B00D8D355 /* Assets.xcassets */; };
 		A8ECAD6D2821D47B00D8D355 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8ECAD6C2821D47B00D8D355 /* Preview Assets.xcassets */; };
@@ -28,6 +29,7 @@
 		A82925592831372D00F8715D /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseManager.swift; path = Utils/FirebaseManager.swift; sourceTree = "<group>"; };
 		A8A459F12835444E00E0CBA2 /* CreateNewMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewMessageView.swift; sourceTree = "<group>"; };
 		A8A693282846637200D1A20A /* ChatLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatLogView.swift; path = ../../../../../../../../../Users/jc.kim/Desktop/NotoProjectWithSwiftUI/NotoProjectWithSwiftUI/ChatLogView.swift; sourceTree = "<group>"; };
+		A8A6932A284A437C00D1A20A /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		A8ECAD622821D47A00D8D355 /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8ECAD652821D47A00D8D355 /* ChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatApp.swift; sourceTree = "<group>"; };
 		A8ECAD692821D47B00D8D355 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				A82925572831372600F8715D /* ChatUser.swift */,
+				A8A6932A284A437C00D1A20A /* ChatMessage.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8A6932B284A437E00D1A20A /* ChatMessage.swift in Sources */,
 				A82925582831372600F8715D /* ChatUser.swift in Sources */,
 				A8A693292846637200D1A20A /* ChatLogView.swift in Sources */,
 				A8ECAD772821D49D00D8D355 /* ImagePicker.swift in Sources */,
