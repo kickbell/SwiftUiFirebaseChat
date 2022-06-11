@@ -33,7 +33,7 @@ struct RecentMessage: Identifiable {
 
 class MainMessagesViewModel: ObservableObject {
   
-  @Published var errorMessage = " "
+  @Published var errorMessage = ""
   @Published var chatUser: ChatUser?
   @Published var recentMessages: [RecentMessage] = []
   

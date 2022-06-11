@@ -5,7 +5,7 @@
 //  Created by jc.kim on 6/3/22.
 //
 
-import Foundationimport Foundation
+import Foundation
 
 struct ChatMessage: Decodable, Identifiable {
     var id: String { documentId ?? "" }

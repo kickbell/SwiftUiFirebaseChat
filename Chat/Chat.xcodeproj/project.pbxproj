@@ -74,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				A82925592831372D00F8715D /* FirebaseManager.swift */,
+				A8A693272846636500D1A20A /* Chat */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -148,9 +149,8 @@
 		A8ECAD7C2825882A00D8D355 /* MainMessages */ = {
 			isa = PBXGroup;
 			children = (
-				A8A693272846636500D1A20A /* Chat */,
-				A8ECAD7A2825882100D8D355 /* MainMessagesView.swift */,
 				A8A459F32835445300E0CBA2 /* NewMessage */,
+				A8ECAD7A2825882100D8D355 /* MainMessagesView.swift */,
 			);
 			path = MainMessages;
 			sourceTree = "<group>";
