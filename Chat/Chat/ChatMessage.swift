@@ -14,5 +14,6 @@ struct ChatMessage: Decodable, Identifiable {
     let fromId: String
     let toId: String
     let text: String
+    let profileImageUrl: String?
 }
 
